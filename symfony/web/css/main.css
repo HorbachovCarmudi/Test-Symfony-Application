@@ -1,0 +1,13 @@
+.content {
+    width: 300px;
+    margin:0 auto;
+}
+h4 {
+    text-decoration: underline;
+    margin:5px;
+    text-align: center;
+}
+.footer {
+    font-size: 8pt;
+    font-weight: bolder;
+}
