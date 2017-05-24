@@ -7,7 +7,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - /var/www/test/symfony:/var/www
+      - ./symfony:/var/www
     links:
       - db
 
