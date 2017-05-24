@@ -18,7 +18,7 @@ final class File
      * Email constructor.
      * @param string $name
      */
-    private function __construct($name)
+    public function __construct($name)
     {
         $this->name = $name;
     }

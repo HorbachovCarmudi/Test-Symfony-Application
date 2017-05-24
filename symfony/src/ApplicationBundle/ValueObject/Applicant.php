@@ -23,7 +23,7 @@ final class Applicant
      * @param string $email
      * @param string $name
      */
-    private function __construct($email, $name)
+    public function __construct($email, $name)
     {
         $this->email = $email;
         $this->name = $name;

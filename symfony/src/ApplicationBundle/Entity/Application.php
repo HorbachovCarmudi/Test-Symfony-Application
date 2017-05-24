@@ -2,6 +2,9 @@
 
 namespace ApplicationBundle\Entity;
 
+use ApplicationBundle\ValueObject\Applicant;
+use ApplicationBundle\ValueObject\File;
+
 /**
  * Class Application
  * @package ApplicationBundle\Entity
@@ -9,65 +12,39 @@ namespace ApplicationBundle\Entity;
 class Application
 {
     /**
-     * @var
+     * @var Applicant
      */
-    private $email;
+    private $applicant;
 
     /**
-     * @var
+     * @var File
      */
-    private $name;
+    private $file;
 
     /**
-     * @var
+     * Application constructor.
+     * @param $applicant
+     * @param $file
      */
-    private $document;
-
-    /**
-     * @return mixed
-     */
-    public function getEmail()
+    public function __construct($applicant, $file)
     {
-        return $this->email;
+        $this->applicant = $applicant;
+        $this->file = $file;
     }
 
     /**
-     * @param mixed $email
+     * @return Applicant
      */
-    public function setEmail($email)
+    public function getApplicant()
     {
-        $this->email = $email;
+        return $this->applicant;
     }
 
     /**
-     * @return mixed
+     * @return File
      */
-    public function getName()
+    public function getFile()
     {
-        return $this->name;
-    }
-
-    /**
-     * @param mixed $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDocument()
-    {
-        return $this->document;
-    }
-
-    /**
-     * @param mixed $document
-     */
-    public function setDocument($document)
-    {
-        $this->document = $document;
+        return $this->file;
     }
 }
