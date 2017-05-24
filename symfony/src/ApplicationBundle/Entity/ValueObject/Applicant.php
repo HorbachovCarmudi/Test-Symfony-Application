@@ -1,20 +1,24 @@
 <?php
 
-namespace ApplicationBundle\ValueObject;
+namespace ApplicationBundle\Entity\ValueObject;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class Applicant
  * @package ApplicationBundle\ValueObject
+ * @ORM\Embeddable
  */
 final class Applicant
 {
     /**
-     * @var string
+     *  @var string
+     *  @ORM\Column(type="string")
      */
     private $email;
 
     /**
      * @var string
+     * @ORM\Column(type="string")
      */
     private $name;
 

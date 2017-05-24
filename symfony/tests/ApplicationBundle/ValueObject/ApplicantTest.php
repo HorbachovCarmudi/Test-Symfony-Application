@@ -2,7 +2,7 @@
 
 namespace ApplicationBundle\Tests\Entity;
 
-use ApplicationBundle\ValueObject\Applicant;
+use ApplicationBundle\Entity\ValueObject\Applicant;
 
 /**
  * Class BlogTest

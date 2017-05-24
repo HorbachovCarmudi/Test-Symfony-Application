@@ -2,31 +2,44 @@
 
 namespace ApplicationBundle\Entity;
 
-use ApplicationBundle\ValueObject\Applicant;
-use ApplicationBundle\ValueObject\File;
+use ApplicationBundle\Entity\ValueObject\Applicant;
+use ApplicationBundle\Entity\ValueObject\File;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class Application
  * @package ApplicationBundle\Entity
+ * @ORM\Entity
+ * @ORM\Table(name="application")
  */
+
 class Application
 {
     /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
      * @var Applicant
+     * @ORM\Embedded(class = "ApplicationBundle\Entity\ValueObject\Applicant", columnPrefix = false)
      */
     private $applicant;
 
     /**
      * @var File
+     * @ORM\Embedded(class = "ApplicationBundle\Entity\ValueObject\File", columnPrefix = "file_")
      */
     private $file;
 
     /**
      * Application constructor.
-     * @param $applicant
-     * @param $file
+     * @param Applicant $applicant
+     * @param File $file
      */
-    public function __construct($applicant, $file)
+    public function __construct(Applicant $applicant, File $file)
     {
         $this->applicant = $applicant;
         $this->file = $file;

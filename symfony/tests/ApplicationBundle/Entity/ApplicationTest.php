@@ -3,8 +3,8 @@
 namespace ApplicationBundle\Tests\Entity;
 
 use ApplicationBundle\Entity\Application;
-use ApplicationBundle\ValueObject\Applicant;
-use ApplicationBundle\ValueObject\File;
+use ApplicationBundle\Entity\ValueObject\Applicant;
+use ApplicationBundle\Entity\ValueObject\File;
 
 /**
  * Class BlogTest
