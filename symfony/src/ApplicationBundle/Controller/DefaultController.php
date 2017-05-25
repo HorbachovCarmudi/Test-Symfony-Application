@@ -5,6 +5,8 @@ namespace ApplicationBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use ApplicationBundle\Form\ApplicationType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\BrowserKit\Response;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class DefaultController extends Controller
 {
@@ -39,5 +41,10 @@ class DefaultController extends Controller
                 'form' => $form->createView(),
             ]
         );
+    }
+
+    public function adminAction()
+    {
+        exit('1');
     }
 }

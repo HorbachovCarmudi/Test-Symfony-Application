@@ -7,4 +7,6 @@ ApplicationBundle_default_create:
     defaults: {  _controller: ApplicationBundle:Default:create}
     requirements:
         methods:  POST
-        blog_id: \d+
+ApplicationBundle_default_admin:
+    path:  /admin/
+    defaults: {  _controller: ApplicationBundle:Default:admin}
