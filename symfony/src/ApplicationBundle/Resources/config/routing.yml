@@ -10,3 +10,9 @@ ApplicationBundle_default_create:
 ApplicationBundle_default_admin:
     path:  /admin/
     defaults: {  _controller: ApplicationBundle:Default:admin}
+ApplicationBundle_default_login:
+    path: /login/
+    defaults: {  _controller: ApplicationBundle:Default:login}
+ApplicationBundle_default_logout:
+    path: /logout/
+

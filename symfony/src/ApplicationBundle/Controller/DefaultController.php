@@ -45,6 +45,21 @@ class DefaultController extends Controller
 
     public function adminAction()
     {
-        exit('1');
+        return $this->render(
+            'ApplicationBundle:Default:admin.html.twig'
+        );
+    }
+
+    public function loginAction()
+    {
+        $authenticationUtils = $this->get('security.authentication_utils');
+
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('ApplicationBundle:Default:login.html.twig', array(
+            'last_username' => $lastUsername,
+            'error'         => $error,
+        ));
     }
 }

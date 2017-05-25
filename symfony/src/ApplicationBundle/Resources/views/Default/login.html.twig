@@ -1,0 +1,18 @@
+{% extends 'ApplicationBundle::base.html.twig' %}
+
+{% block content %}
+    <h4>Login to secured area</h4>
+    <form action="{{ path('ApplicationBundle_default_login') }}" method="post">
+        <div class="form-group">
+            <label class="control-label required" for="username">Username:</label>
+            <input type="text" id="username" name="_username" value="{{ last_username }}" />
+        </div>
+        <div class="form-group">
+            <label class="control-label required" for="password">Password:</label>
+            <input type="password" id="password" name="_password" />
+        </div>
+
+        <button type="submit" class="save btn">Login</button>
+    </form>
+    <a class="save btn" href="{{ path('application_homepage') }}">Back</a>
+{% endblock %}

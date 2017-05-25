@@ -14,7 +14,12 @@ security:
             security: false
         main:
             anonymous: ~
-            http_basic: ~
+            form_login:
+                login_path: ApplicationBundle_default_login
+                check_path: ApplicationBundle_default_login
+            logout:
+                path:   ApplicationBundle_default_logout
+                target: /
 
     access_control:
             # require ROLE_ADMIN for /admin*
