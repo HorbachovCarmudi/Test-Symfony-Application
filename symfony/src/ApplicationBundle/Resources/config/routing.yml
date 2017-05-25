@@ -1,3 +1,10 @@
 application_homepage:
     path:     /
     defaults: { _controller: ApplicationBundle:Default:index }
+
+ApplicationBundle_default_create:
+    path:  /apply/
+    defaults: {  _controller: ApplicationBundle:Default:create}
+    requirements:
+        methods:  POST
+        blog_id: \d+

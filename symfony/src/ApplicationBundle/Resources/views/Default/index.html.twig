@@ -3,10 +3,7 @@
 
 {% block content %}
     <h4>Submit your application</h4>
-    <form action="1" method="post" >
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Apply"/>
-        {{ form_end(form) }}
-    </form>
+    {{ form_start(form, {'action': path('ApplicationBundle_default_create'), 'method': 'POST'}) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
 {% endblock %}
