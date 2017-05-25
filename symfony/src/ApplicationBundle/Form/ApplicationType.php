@@ -71,7 +71,7 @@ class ApplicationType extends AbstractType implements DataMapperInterface
                 $form['name']->getData(),
                 $form['email']->getData()
             ),
-            new File($form['file']->getData())
+            new File($form['file']->getData()->getClientOriginalName())
         );
     }
 

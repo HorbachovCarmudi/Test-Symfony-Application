@@ -29,6 +29,8 @@ class DefaultController extends Controller
             $doctrineManager = $this->getDoctrine()->getManager();
             $doctrineManager->persist($application);
             $doctrineManager->flush();
+
+            $this->get('application.application_uploader')->upload($form['file']->getData(), $application->getId());
         }
 
         return $this->render(

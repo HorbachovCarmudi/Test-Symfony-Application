@@ -46,6 +46,14 @@ class Application
     }
 
     /**
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * @return Applicant
      */
     public function getApplicant()
