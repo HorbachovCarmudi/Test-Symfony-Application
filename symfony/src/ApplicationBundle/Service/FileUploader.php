@@ -43,6 +43,6 @@ class FileUploader
      */
     public static function getServerName(string $name, int $uniqueKey)
     {
-        return $name . '-' . $uniqueKey;
+        return  $uniqueKey. '-' . $name;
     }
 }
