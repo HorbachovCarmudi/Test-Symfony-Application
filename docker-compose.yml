@@ -2,7 +2,7 @@ version: '2'
 
 services:
   webserver:
-    image: whatwedo/symfony3
+    build: .
     ports:
       - "80:80"
       - "443:443"
