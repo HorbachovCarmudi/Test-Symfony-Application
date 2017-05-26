@@ -1,0 +1,12 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: db
+    database_port: 3306
+    database_name: symfony_test
+    database_user: root
+    database_password: password
+    mailer_transport: smtp
+    mailer_host: smtp.mailtrap.io
+    mailer_user: 57db09bbe57189
+    mailer_password: 408cbc9759cef7
+    secret: ThisTokenIsNotSoSecretChangeIt
