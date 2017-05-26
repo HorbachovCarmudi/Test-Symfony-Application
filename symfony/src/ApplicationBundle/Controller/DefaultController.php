@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use ApplicationBundle\Form\ApplicationType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Swift_Message;
 
 /**
  * Class DefaultController
@@ -36,14 +37,29 @@ class DefaultController extends Controller
         $form = $this->createForm(ApplicationType::class, null);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $application = $form->getData();
-            $doctrineManager = $this->getDoctrine()->getManager();
-            $doctrineManager->persist($application);
-            $doctrineManager->flush();
-
-            $this->get('application.application_uploader')->upload($form['file']->getData(), $application->getId());
+        if ( ! ($form->isSubmitted() && $form->isValid()) ) {
+            return $this->render(
+                'ApplicationBundle:Default:index.html.twig',
+                [
+                    'form' => $form->createView(),
+                    'validation_error' => true,
+                ]
+            );
         }
+
+        $application = $form->getData();
+        $doctrineManager = $this->getDoctrine()->getManager();
+        $doctrineManager->persist($application);
+        $doctrineManager->flush();
+
+        $this->get('application.application_uploader')->upload($form['file']->getData(), $application->getId());
+
+        $message = Swift_Message::newInstance()
+            ->setSubject('Application received')
+            ->setFrom('application@test.com')
+            ->setTo($application->getApplicant()->getEmail())
+            ->setBody('Thanks for your application! we will get back to you as fast as we can.');
+        $this->get('mailer')->send($message);
 
         return $this->render(
             'ApplicationBundle:Default:index.html.twig',
