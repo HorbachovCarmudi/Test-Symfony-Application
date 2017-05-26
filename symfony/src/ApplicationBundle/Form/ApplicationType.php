@@ -43,15 +43,7 @@ class ApplicationType extends AbstractType implements DataMapperInterface
     {
         $resolver->setDefaults(array(
             'data_class' => Application::class,
-            'empty_data' => function (FormInterface $form) {
-                return new Application(
-                    new Applicant(
-                        $form->get('name')->getData(),
-                        $form->get('email')->getData()
-                    ),
-                    new File($form->get('file')->getName())
-                );
-            },
+            'empty_data' => null,
         ));
     }
 
@@ -68,8 +60,8 @@ class ApplicationType extends AbstractType implements DataMapperInterface
         $form = iterator_to_array($form);
         $data = new Application(
             new Applicant(
-                $form['name']->getData(),
-                $form['email']->getData()
+                $form['email']->getData(),
+                $form['name']->getData()
             ),
             new File($form['file']->getData()->getClientOriginalName())
         );
@@ -78,7 +70,7 @@ class ApplicationType extends AbstractType implements DataMapperInterface
     /**
      * @return string
      */
-    public function getBlockPrefix()
+    public function getBlockPrefix() : string
     {
         return 'apply';
     }

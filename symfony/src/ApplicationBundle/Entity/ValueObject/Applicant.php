@@ -36,7 +36,7 @@ final class Applicant
     /**
      * @return string
      */
-    public function getEmail()
+    public function getEmail() : string
     {
         return $this->email;
     }
@@ -44,7 +44,7 @@ final class Applicant
     /**
      * @return string
      */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
     }

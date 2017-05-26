@@ -15,4 +15,10 @@ ApplicationBundle_default_login:
     defaults: {  _controller: ApplicationBundle:Default:login}
 ApplicationBundle_default_logout:
     path: /logout/
+ApplicationBundle_default_download:
+    path: /download/{id}
+    defaults: { _controller: ApplicationBundle:Default:download }
+    requirements:
+        methods:  GET
+        id: \d+
 

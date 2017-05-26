@@ -1,5 +1,26 @@
 {% extends 'ApplicationBundle::base.html.twig' %}
 
 {% block content %}
-    <a class="save btn" href="{{ path('ApplicationBundle_default_logout') }}">Logout</a>
+    <h4>List of Applications</h4>
+    <a class="save btn" href="{{ path('application_homepage') }}">Back</a>
+    <a class="save btn" style="float:right" href="{{ path('ApplicationBundle_default_logout') }}">Logout</a>
+    <table>
+        <tr>
+            <th>Created</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Attachment</th>
+        </tr>
+        {% for application in applications %}
+            <tr>
+                <td>{{ application.CreatedAt }}</td>
+                <td>{{ application.Applicant.Name }}</td>
+                <td>{{ application.Applicant.Email }}</td>
+                <td><a href="{{ path('ApplicationBundle_default_download', { 'id':application.id }) }}">{{ application.File.Name }}</a></td>
+            </tr>
+        {% else %}
+            <tr><td><p>There are no applications</p></td></tr>
+        {% endfor %}
+    </table>
+    <a class="save btn" href="{{ path('application_homepage') }}">Back</a>
 {% endblock %}

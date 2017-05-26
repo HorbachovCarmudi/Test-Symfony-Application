@@ -5,11 +5,17 @@ namespace ApplicationBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use ApplicationBundle\Form\ApplicationType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\BrowserKit\Response;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class DefaultController
+ * @package ApplicationBundle\Controller
+ */
 class DefaultController extends Controller
 {
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction()
     {
         $form = $this->createForm(ApplicationType::class);
@@ -21,6 +27,10 @@ class DefaultController extends Controller
         );
     }
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function createAction(Request $request)
     {
         $form = $this->createForm(ApplicationType::class, null);
@@ -39,17 +49,33 @@ class DefaultController extends Controller
             'ApplicationBundle:Default:index.html.twig',
             [
                 'form' => $form->createView(),
+                'success' => true,
             ]
         );
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function adminAction()
     {
+        $doctrineManager = $this->getDoctrine()->getManager();
+        $list = $doctrineManager->getRepository('ApplicationBundle:Application')->findBy(
+            [],
+            ['id' => 'DESC']
+        );
+
         return $this->render(
-            'ApplicationBundle:Default:admin.html.twig'
+            'ApplicationBundle:Default:admin.html.twig',
+            [
+                'applications' => $list,
+            ]
         );
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function loginAction()
     {
         $authenticationUtils = $this->get('security.authentication_utils');
@@ -61,5 +87,22 @@ class DefaultController extends Controller
             'last_username' => $lastUsername,
             'error'         => $error,
         ));
+    }
+
+    public function downloadAction(Request $request, $id)
+    {
+        $doctrineManager = $this->getDoctrine()->getManager();
+        $application = $doctrineManager->getRepository('ApplicationBundle:Application')
+            ->findOneBy(['id' => $id]);
+
+        $fileName = $application->getFile()->getName();
+        $file = $this->get('application.application_uploader')->getPath($fileName, $id);
+
+        $headers = [
+            'Content-Type' => 'application/octet-stream',
+            'Content-Disposition' => 'inline; filename="' . $fileName . '"'
+        ];
+
+        return new Response(file_get_contents($file), 200, $headers);
     }
 }

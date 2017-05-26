@@ -23,6 +23,12 @@ class Application
     private $id;
 
     /**
+     * @var string
+     * @ORM\Column(type="datetime", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+     */
+    private $created_at;
+
+    /**
      * @var Applicant
      * @ORM\Embedded(class = "ApplicationBundle\Entity\ValueObject\Applicant", columnPrefix = false)
      */
@@ -46,9 +52,17 @@ class Application
     }
 
     /**
+     * @return string
+     */
+    public function getCreatedAt() : string
+    {
+        return date_format($this->created_at, 'm-d H:i:s');
+    }
+
+    /**
      * @return integer
      */
-    public function getId()
+    public function getId() : int
     {
         return $this->id;
     }
@@ -56,7 +70,7 @@ class Application
     /**
      * @return Applicant
      */
-    public function getApplicant()
+    public function getApplicant() : Applicant
     {
         return $this->applicant;
     }
@@ -64,7 +78,7 @@ class Application
     /**
      * @return File
      */
-    public function getFile()
+    public function getFile() : File
     {
         return $this->file;
     }

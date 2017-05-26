@@ -1,6 +1,9 @@
 {% extends 'ApplicationBundle::base.html.twig' %}
 
 {% block content %}
+    {% if success %}
+        <div class="success">Thank you for your application! Email was sent</div>
+    {% endif %}
     <h4>Submit your application</h4>
     {{ form_start(form, {'action': path('ApplicationBundle_default_create'), 'method': 'POST'}) }}
     {{ form_widget(form) }}

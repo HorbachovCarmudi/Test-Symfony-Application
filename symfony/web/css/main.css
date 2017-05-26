@@ -1,5 +1,5 @@
 .content {
-    width: 300px;
+    width: 500px;
     margin:0 auto;
 }
 h4 {
@@ -14,4 +14,23 @@ h4 {
 
 .error {
     color: darkred;
+}
+
+.success {
+    color: darkgreen;
+}
+
+table {
+    font-size: 9pt;
+    width: 100%;
+}
+
+td {
+    padding: 5px 7px;
+    max-width: 150px;
+    overflow: hidden;
+    white-space: pre-line;
+    border-top: solid !important ;
+    border-width: 0.001em !important;
+    border-color: lightgrey!important;
 }
