@@ -21,3 +21,14 @@ doctrine:
       port: 3306
       name: test_symfony_test
       user: root
+
+security:
+
+    providers:
+        in_memory:
+            memory:
+                users:
+                    lengoo_test:
+                        password: $2y$12$JH7NcT4JXy1s8GpwEVR2suECw/msPGZgarj2QJqIRwUxoUPUpYnnu
+                        roles: 'ROLE_ADMIN'
+

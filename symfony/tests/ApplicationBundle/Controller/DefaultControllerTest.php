@@ -3,11 +3,13 @@
 namespace ApplicationBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use ApplicationBundle\Entity\Application;
-use ApplicationBundle\Form\ApplicationType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+/**
+ * Class DefaultControllerTest
+ * @package ApplicationBundle\Tests\Controller
+ */
 class DefaultControllerTest extends WebTestCase
 {
     public function testIndex()
@@ -16,7 +18,6 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/');
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
     }
-
 
     public function testCreateSuccess()
     {
@@ -69,4 +70,99 @@ class DefaultControllerTest extends WebTestCase
         $this->assertEquals(1, $crawler->filter('div.error')->count());
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
     }
+
+    public function testSecuredAreaFail()
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/admin/');
+        $this->assertEquals(Response::HTTP_FOUND, $client->getResponse()->getStatusCode());
+
+        $crawler = $client->followRedirect();
+        $this->assertRegExp('/\/login/', $crawler->getUri());
+    }
+
+    public function testLoginFail()
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/login/');
+
+        $this->assertEquals(1, $crawler->filter('form[action="/login/"]')->count());
+        $form = $crawler->selectButton('Login')->form();
+        $form->setValues(
+            [
+                '_username' => 'name_' . time(),
+                '_password' => time(),
+            ]
+        );
+
+        $crawler = $client->submit($form);
+        $this->assertEquals(Response::HTTP_FOUND, $client->getResponse()->getStatusCode());
+
+        $crawler = $client->followRedirect();
+        $this->assertRegExp('/\/login/', $crawler->getUri());
+        $this->assertEquals(1, $crawler->filter('div.error')->count());
+    }
+
+    public function testLoginSuccess()
+    {
+        $client = static::createClient();
+        $crawler = $client->getCrawler();
+        $this->login($client, $crawler);
+
+        $crawler = $client->request('GET', '/admin/');
+        $this->assertRegExp('/\/admin/', $crawler->getUri());
+        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+        $this->assertLessThan($crawler->filter('th')->count(),0);
+    }
+
+    public function testDownloadSuccess()
+    {
+        $client = static::createClient();
+        $crawler = $client->getCrawler();
+        $this->login($client, $crawler);
+
+        $crawler = $client->request('GET', '/admin/');
+        $downloadUrl = $crawler->filter('td a')->getNode(1)->getAttribute('href');
+
+        $crawler = $client->request('GET', $downloadUrl);
+
+        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+        $this->assertEquals('application/octet-stream', $client->getResponse()->headers->get('content-type'));
+    }
+
+    public function testLogout()
+    {
+        $client = static::createClient();
+        $crawler = $client->getCrawler();
+        $this->login($client, $crawler);
+
+        $crawler = $client->request('GET', '/logout/');
+        $crawler = $client->request('GET', '/admin/');
+        $crawler = $client->followRedirect();
+
+        $this->assertRegExp('/\/login/', $crawler->getUri());
+    }
+
+    /**
+     * @param $client
+     * @param $crawler
+     */
+    private function login(&$client, &$crawler)
+    {
+        $crawler = $client->request('GET', '/login/');
+        $this->assertEquals(1, $crawler->filter('form[action="/login/"]')->count());
+        $form = $crawler->selectButton('Login')->form();
+        $form->setValues(
+            [
+                '_username' => 'lengoo_test',
+                '_password' => 'lengoo_test',
+            ]
+        );
+
+        $crawler = $client->submit($form);
+        $this->assertEquals(Response::HTTP_FOUND, $client->getResponse()->getStatusCode());
+
+        $crawler = $client->followRedirect();
+    }
+
 }
