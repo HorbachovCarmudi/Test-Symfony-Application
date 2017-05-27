@@ -19,7 +19,7 @@ doctrine:
   dbal:
       host: db
       port: 3306
-      name: test_symfony_test
+      dbname: test_application
       user: root
 
 security:

@@ -20,3 +20,7 @@ RUN chmod 777 -R var
 
 WORKDIR /var/www
 
+RUN php bin/console doctrine:database:create
+RUN php bin/console doctrine:database:create --env=test
+RUN php bin/console doctrine:schema:create
+RUN php bin/console doctrine:schema:create --env=test

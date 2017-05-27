@@ -122,7 +122,7 @@ class DefaultControllerTest extends WebTestCase
         $this->login($client, $crawler);
 
         $crawler = $client->request('GET', '/admin/');
-        $downloadUrl = $crawler->filter('td a')->getNode(1)->getAttribute('href');
+        $downloadUrl = $crawler->filter('td a')->getNode(0)->getAttribute('href');
 
         $crawler = $client->request('GET', $downloadUrl);
 
