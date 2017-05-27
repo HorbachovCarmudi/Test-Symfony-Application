@@ -19,5 +19,4 @@ ADD ./symfony /var/www
 RUN chmod 777 -R var
 
 WORKDIR /var/www
-RUN composer install --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader
-RUN php bin/console doctrine:database:create
+

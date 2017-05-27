@@ -40,6 +40,7 @@ class DefaultControllerTest extends WebTestCase
         );
 
         $crawler = $client->submit($form);
+        $this->assertEquals(1, $crawler->filter('div.success')->count());
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
     }
 
@@ -58,13 +59,14 @@ class DefaultControllerTest extends WebTestCase
         $form = $crawler->selectButton('Apply')->form();
         $form->setValues(
             [
-                'apply[name]' => 'name_' . time(),
+                'apply[name]' => '',
                 'apply[email]' => time() . '',
                 'apply[file]'  => $file,
             ]
         );
 
         $crawler = $client->submit($form);
-        $this->assertEquals(Response::HTTP_PRECONDITION_FAILED, $client->getResponse()->getStatusCode());
+        $this->assertEquals(1, $crawler->filter('div.error')->count());
+        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
     }
 }

@@ -2,6 +2,7 @@
 
 namespace ApplicationBundle\Entity\ValueObject;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class File
@@ -12,6 +13,8 @@ final class File
 {
     /**
      * @var string
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
      * @ORM\Column(type="string")
      */
     private $name;

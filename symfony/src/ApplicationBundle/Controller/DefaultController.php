@@ -34,10 +34,14 @@ class DefaultController extends Controller
      */
     public function createAction(Request $request)
     {
+
         $form = $this->createForm(ApplicationType::class, null);
         $form->handleRequest($request);
+        $application = $form->getData();
 
-        if ( ! ($form->isSubmitted() && $form->isValid()) ) {
+        if ( ! ($form->isSubmitted() && $form->isValid()
+            && $this->get('validator')->validate($application)->count() == 0)
+        ) {
             return $this->render(
                 'ApplicationBundle:Default:index.html.twig',
                 [
@@ -47,7 +51,6 @@ class DefaultController extends Controller
             );
         }
 
-        $application = $form->getData();
         $doctrineManager = $this->getDoctrine()->getManager();
         $doctrineManager->persist($application);
         $doctrineManager->flush();

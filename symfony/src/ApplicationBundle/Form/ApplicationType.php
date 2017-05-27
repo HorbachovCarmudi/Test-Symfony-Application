@@ -12,7 +12,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\DataMapperInterface;
 
 /**
@@ -30,9 +29,7 @@ class ApplicationType extends AbstractType implements DataMapperInterface
         $builder->add('name', TextType::class);
         $builder->add('email', EmailType::class);
         $builder->add('file', FileType::class);
-        $builder->add('apply', SubmitType::class, array(
-            'attr' => array('class' => 'save'),
-        ));
+        $builder->add('apply', SubmitType::class, ['attr' => ['class' => 'save']]);
         $builder->setDataMapper($this);
     }
 
@@ -41,10 +38,10 @@ class ApplicationType extends AbstractType implements DataMapperInterface
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => Application::class,
             'empty_data' => null,
-        ));
+        ]);
     }
 
     public function mapDataToForms($data, $form)

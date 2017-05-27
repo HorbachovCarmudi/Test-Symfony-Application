@@ -5,6 +5,7 @@ namespace ApplicationBundle\Entity;
 use ApplicationBundle\Entity\ValueObject\Applicant;
 use ApplicationBundle\Entity\ValueObject\File;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Application
@@ -30,12 +31,14 @@ class Application
 
     /**
      * @var Applicant
+     * @Assert\Valid()
      * @ORM\Embedded(class = "ApplicationBundle\Entity\ValueObject\Applicant", columnPrefix = false)
      */
     private $applicant;
 
     /**
      * @var File
+     * @Assert\Valid()
      * @ORM\Embedded(class = "ApplicationBundle\Entity\ValueObject\File", columnPrefix = "file_")
      */
     private $file;
