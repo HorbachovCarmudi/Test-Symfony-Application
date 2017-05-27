@@ -17,11 +17,17 @@ RUN apt-get -qq -y install php-sqlite3
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 ADD ./symfony /var/www
-RUN chmod 777 -R var
 
 WORKDIR /var/www
+
+RUN chmod 777 -R var
+RUN chmod 777 .
+
+RUN composer install  --no-interaction --no-progress
 
 RUN php bin/console doctrine:database:create
 RUN php bin/console doctrine:database:create --env=test
 RUN php bin/console doctrine:schema:create
 RUN php bin/console doctrine:schema:create --env=test
+
+
