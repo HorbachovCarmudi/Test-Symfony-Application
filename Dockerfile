@@ -2,6 +2,7 @@ FROM whatwedo/symfony3
 
 RUN apt-get -qq  update
 RUN apt-get -qq -y install curl
+RUN apt-get -qq -y install php-curl
 RUN apt-get -qq -y install php-xml
 RUN wget https://phar.phpunit.de/phpunit-5.4.6.phar
 RUN chmod +x phpunit-5.4.6.phar

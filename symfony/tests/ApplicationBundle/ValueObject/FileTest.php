@@ -5,7 +5,7 @@ namespace ApplicationBundle\Tests\Entity;
 use ApplicationBundle\Entity\ValueObject\File;
 
 /**
- * Class BlogTest
+ * Class FileTest
  * @package ApplicationBundle\Tests\Entity
  */
 class FileTest extends \PHPUnit_Framework_TestCase

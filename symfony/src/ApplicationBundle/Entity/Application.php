@@ -4,6 +4,7 @@ namespace ApplicationBundle\Entity;
 
 use ApplicationBundle\Entity\ValueObject\Applicant;
 use ApplicationBundle\Entity\ValueObject\File;
+use ApplicationBundle\Entity\ValueObject\Address;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -44,14 +45,23 @@ class Application
     private $file;
 
     /**
+     * @var Address
+     * @Assert\Valid()
+     * @ORM\Embedded(class = "ApplicationBundle\Entity\ValueObject\Address", columnPrefix = false)
+     */
+    private $address;
+
+    /**
      * Application constructor.
      * @param Applicant $applicant
      * @param File $file
+     * @param Address $address
      */
-    public function __construct(Applicant $applicant, File $file)
+    public function __construct(Applicant $applicant, File $file, Address $address)
     {
         $this->applicant = $applicant;
         $this->file = $file;
+        $this->address = $address;
     }
 
     /**
@@ -85,4 +95,22 @@ class Application
     {
         return $this->file;
     }
+
+    /**
+     * @return Address
+     */
+    public function getAddress(): Address
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param Address $address
+     */
+    public function setAddress(Address $address)
+    {
+        $this->address = $address;
+    }
+
+
 }

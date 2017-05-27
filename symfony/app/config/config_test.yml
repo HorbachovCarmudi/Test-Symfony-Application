@@ -22,8 +22,10 @@ doctrine:
       dbname: test_application
       user: root
 
-security:
+parameters:
+    application_directory: '%kernel.root_dir%/../applications_tests'
 
+security:
     providers:
         in_memory:
             memory:

@@ -4,8 +4,9 @@ namespace ApplicationBundle\Tests\Entity;
 
 use ApplicationBundle\Entity\ValueObject\Applicant;
 
+
 /**
- * Class BlogTest
+ * Class ApplicantTest
  * @package ApplicationBundle\Tests\Entity
  */
 class ApplicantTest extends \PHPUnit_Framework_TestCase

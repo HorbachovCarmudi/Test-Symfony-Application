@@ -2,3 +2,6 @@ services:
   application.application_uploader:
           class: ApplicationBundle\Service\FileUploader
           arguments: ['%application_directory%']
+
+  application.location_finder:
+          class: ApplicationBundle\Service\LocationFinder

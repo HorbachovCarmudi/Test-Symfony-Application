@@ -2,6 +2,8 @@
 
 namespace ApplicationBundle\Controller;
 
+use ApplicationBundle\Entity\Application;
+use ApplicationBundle\Entity\ValueObject\Address;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use ApplicationBundle\Form\ApplicationType;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +36,6 @@ class DefaultController extends Controller
      */
     public function createAction(Request $request)
     {
-
         $form = $this->createForm(ApplicationType::class, null);
         $form->handleRequest($request);
         $application = $form->getData();
@@ -51,18 +52,12 @@ class DefaultController extends Controller
             );
         }
 
-        $doctrineManager = $this->getDoctrine()->getManager();
-        $doctrineManager->persist($application);
-        $doctrineManager->flush();
+        $address = $this->get('application.location_finder')->findAddressByIp($request->getClientIp());
+        $application->setAddress(new Address($address));
 
+        $this->persistEntity($application);
         $this->get('application.application_uploader')->upload($form['file']->getData(), $application->getId());
-
-        $message = Swift_Message::newInstance()
-            ->setSubject('Application received')
-            ->setFrom('application@test.com')
-            ->setTo($application->getApplicant()->getEmail())
-            ->setBody('Thanks for your application! we will get back to you as fast as we can.');
-        $this->get('mailer')->send($message);
+        $this->sendEmail($application);
 
         return $this->render(
             'ApplicationBundle:Default:index.html.twig',
@@ -108,6 +103,11 @@ class DefaultController extends Controller
         ));
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return Response
+     */
     public function downloadAction(Request $request, $id)
     {
         $doctrineManager = $this->getDoctrine()->getManager();
@@ -123,5 +123,28 @@ class DefaultController extends Controller
         ];
 
         return new Response(file_get_contents($file), 200, $headers);
+    }
+
+    /**
+     * @param $entity
+     */
+    private function persistEntity($entity)
+    {
+        $doctrineManager = $this->getDoctrine()->getManager();
+        $doctrineManager->persist($entity);
+        $doctrineManager->flush();
+    }
+
+    /**
+     * @param Application $application
+     */
+    private function sendEmail(Application $application)
+    {
+        $message = Swift_Message::newInstance()
+            ->setSubject('Application received')
+            ->setFrom('application@test.com')
+            ->setTo($application->getApplicant()->getEmail())
+            ->setBody('Thanks for your application! we will get back to you as fast as we can.');
+        $this->get('mailer')->send($message);
     }
 }

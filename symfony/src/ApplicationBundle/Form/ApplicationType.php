@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\DataMapperInterface;
+use ApplicationBundle\Entity\ValueObject\Address;
 
 /**
  * Class ApplicationType
@@ -60,7 +61,8 @@ class ApplicationType extends AbstractType implements DataMapperInterface
                 $form['email']->getData(),
                 $form['name']->getData()
             ),
-            new File($form['file']->getData()->getClientOriginalName())
+            new File($form['file']->getData()->getClientOriginalName()),
+            new Address('')
         );
     }
 

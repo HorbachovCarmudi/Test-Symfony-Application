@@ -5,6 +5,7 @@ namespace ApplicationBundle\Tests\Entity;
 use ApplicationBundle\Entity\Application;
 use ApplicationBundle\Entity\ValueObject\Applicant;
 use ApplicationBundle\Entity\ValueObject\File;
+use ApplicationBundle\Entity\ValueObject\Address;
 use ReflectionClass;
 
 /**
@@ -20,11 +21,13 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     {
         $applicant = new Applicant('email', 'name');
         $file = new File('filename');
+        $address = new Address('test address');
 
-        $application = new Application($applicant, $file);
+        $application = new Application($applicant, $file, $address);
 
         $this->assertEquals($applicant, $application->getApplicant());
         $this->assertEquals($file, $application->getFile());
+        $this->assertEquals($address, $application->getAddress());
     }
 
     public function testGetId()
@@ -33,8 +36,9 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 
         $applicant = new Applicant('email', 'name');
         $file = new File('filename');
+        $address = new Address('test address');
 
-        $application = new Application($applicant, $file);
+        $application = new Application($applicant, $file, $address);
         $class = new ReflectionClass('ApplicationBundle\Entity\Application');
 
         $property = $class->getProperty('id');
@@ -50,8 +54,9 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 
         $applicant = new Applicant('email', 'name');
         $file = new File('filename');
+        $address = new Address('test address');
 
-        $application = new Application($applicant, $file);
+        $application = new Application($applicant, $file, $address);
         $class = new ReflectionClass('ApplicationBundle\Entity\Application');
 
         $property = $class->getProperty('created_at');
