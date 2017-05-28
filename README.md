@@ -1,6 +1,8 @@
 # Symfony Coding Challange 
 ### Installation
 
+**Hint:** *probably you will need to make port 80 free with: sudo kill `sudo lsof -t -i:80`*
+
 * clone this repo to $your_directory
 * docker compose
 ```sh
@@ -15,8 +17,6 @@ docker ps -a
 ```sh
 docker exec -it $your_docker_webserver_image_id sh init.sh
 ```
-
-**Hint:** *probably you will need to make port 80 free with: sudo lsof -t -i:80*
 
 ### Testing
 * localhost - here is main form
