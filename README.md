@@ -3,7 +3,7 @@
 
 **Hint:** *probably you will need to make port 80 free with: sudo kill `sudo lsof -t -i:80`*
 
-* clone this repo to $your_directory
+* clone this repo to $your_directory and switch+pull develop branch (if not merged to master yet)
 * docker compose
 ```sh
 cd $your_directory &&
