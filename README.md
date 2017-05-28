@@ -1,14 +1,30 @@
-# Symfony Coding Challange
+# Symfony Coding Challange 
+### Installation
 
-Hi Ihor!
+* clone this repo to $your_directory
+* docker compose
+```sh
+cd $your_directory &&
+docker-compose up
+```
+* check that images are running and get docker webserver id with 
+```sh
+docker ps -a
+```
+* run
+```sh
+docker exec -it $your_docker_webserver_image_id sh init.sh
+```
 
-Thanks for taking your time to work on this Symfony Coding Challenge.
+**Hint:** *probably you will need to make port 80 free with: sudo lsof -t -i:80*
 
-Ideally this test should take a couple of hours. But feel free to take as much time as you need. Quality is more important than speed. Latest delivery though is in one week starting now.
-
-This coding challenge will show us some of your skills. And you get to know our work flow as well. The solution of the challenge is not too hard. So you can focus on technology and code. Show us what you got! ;-)
-
-This is your Demo! Overperforming is very welcome!
+### Testing
+* localhost - here is main form
+* localhost/admin - here is secured area (lengoo, lengoo)
+* localhost/test/index.html - test results. Tests were executed in init.sh
+* localhost:3306 - db is here (root, password)
+___
+___
 
 ### Todo:
 
@@ -54,7 +70,3 @@ This is what we look at - among other things:
 * All code in UTF-8
 
 We are not searching for the best frontend design. Focus on code.
-
----
-
-Good luck!
